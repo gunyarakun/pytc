@@ -44,7 +44,7 @@ ext = Extension('pytc',
                )
 
 setup(name = 'pytc',
-      version = '0.7',
+      version = '0.8',
       description = 'Tokyo Cabinet Python bindings',
       long_description = '''
         Tokyo Cabinet Python bindings
