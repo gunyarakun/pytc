@@ -1,3 +1,9 @@
+2009-05-09  Tasuku SUENAGA <gunyarakun@sourceforge.net>
+
+	* version 0.8
+	* Fixed installation problem.
+		reported in http://d.hatena.ne.jp/stog/20090504#1241451199.
+
 2008-12-31  Tasuku SUENAGA <gunyarakun@sourceforge.net>
 
 	* version 0.7
