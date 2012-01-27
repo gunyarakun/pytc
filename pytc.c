@@ -626,6 +626,72 @@ PyTCHDB_new(PyTypeObject *type, PyObject *args, PyObject *keywds)
 }
 
 static PyObject *
+PyTCHDB_setcache(PyTCHDB *self, PyObject *args, PyObject *keywds) {
+    int rcnum;
+    bool result;
+    static char *kwlist[] = {"rcnum", NULL};
+    
+    if (!PyArg_ParseTupleAndKeywords(args, keywds, "i:setcache", kwlist,
+                                     &rcnum)) {
+        return NULL;
+    }
+    Py_BEGIN_ALLOW_THREADS
+    result = tchdbsetcache(self->hdb, rcnum);
+    Py_END_ALLOW_THREADS
+    
+    if (!result) {
+        raise_tchdb_error(self->hdb);
+        return NULL;
+    }
+    Py_RETURN_NONE;
+    
+}
+
+static PyObject *
+PyTCHDB_setxmsiz(PyTCHDB *self, PyObject *args, PyObject *keywds) {
+    long long xmsiz;
+    bool result;
+    static char *kwlist[] = {"xmsiz", NULL};
+    
+    if (!PyArg_ParseTupleAndKeywords(args, keywds, "L:setxmsiz", kwlist,
+                                     &xmsiz)) {
+        return NULL;
+    }
+    Py_BEGIN_ALLOW_THREADS
+    result = tchdbsetxmsiz(self->hdb, xmsiz);
+    Py_END_ALLOW_THREADS
+    
+    if (!result) {
+        raise_tchdb_error(self->hdb);
+        return NULL;
+    }
+    
+    Py_RETURN_NONE;
+}
+
+static PyObject *
+PyTCHDB_setdfunit(PyTCHDB *self, PyObject *args, PyObject *keywds) {
+    int dfunit;
+    bool result;
+    static char *kwlist[] = {"dfunit", NULL};
+    
+    if (!PyArg_ParseTupleAndKeywords(args, keywds, "i:setdfunit", kwlist,
+                                     &dfunit)) {
+        return NULL;
+    }
+    Py_BEGIN_ALLOW_THREADS
+    result = tchdbsetdfunit(self->hdb, dfunit);
+    Py_END_ALLOW_THREADS
+    
+    if (!result) {
+        raise_tchdb_error(self->hdb);
+        return NULL;
+    }
+    
+    Py_RETURN_NONE;
+}
+
+static PyObject *
 PyTCHDB_ecode(PyTCHDB *self) {
   return PyInt_FromLong((long)tchdbecode(self->hdb));
 }
@@ -899,6 +965,15 @@ static PyMethodDef PyTCHDB_methods[] = {
   {"tune", (PyCFunction)PyTCHDB_tune,
    METH_VARARGS | METH_KEYWORDS,
    "Set the tuning parameters of a hash database object."},
+  {"setcache", (PyCFunction)PyTCHDB_setcache,
+   METH_VARARGS | METH_KEYWORDS,
+   "Set cache size of a hash database object."},
+  {"setxmsiz", (PyCFunction)PyTCHDB_setxmsiz,
+   METH_VARARGS | METH_KEYWORDS,
+   "Set the size of the extra mapped memory of a hash database object."},
+  {"setdfunit", (PyCFunction)PyTCHDB_setdfunit,
+  METH_VARARGS | METH_KEYWORDS,
+  "Set the unit step number of auto defragmentation of a hash database object."},
   {"open", (PyCFunction)PyTCHDB_open,
    METH_VARARGS | METH_KEYWORDS,
    "Open a database file and connect a hash database object."},
