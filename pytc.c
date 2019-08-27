@@ -449,11 +449,12 @@ typedef struct {
   func(type *self, PyObject *_key) { \
     PyObject *ret; \
     char *key = PyString_AsString(_key), *value; \
-    int key_len = PyString_GET_SIZE(_key), value_len; \
+    int key_len, value_len; \
   \
-    if (!key || !key_len) { \
+    if (!key) { \
       return NULL; \
     } \
+    key_len = PyString_GET_SIZE(_key); \
     Py_BEGIN_ALLOW_THREADS \
     value = call(self->member, key, key_len, &value_len); \
     Py_END_ALLOW_THREADS \
