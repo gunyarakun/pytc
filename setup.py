@@ -44,13 +44,13 @@ ext = Extension('pytc',
                )
 
 setup(name = 'pytc',
-      version = '0.8',
+      version = '0.9',
       description = 'Tokyo Cabinet Python bindings',
       long_description = '''
         Tokyo Cabinet Python bindings
       ''',
       license='BSD',
       author = 'Tasuku SUENAGA',
-      author_email = 'gunyarakun@sourceforge.jp',
+      author_email = 'tasuku-s-github@titech.ac',
       ext_modules = [ext]
      )
